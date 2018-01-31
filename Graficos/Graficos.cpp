@@ -12,34 +12,44 @@
 using namespace std;
 
 GLfloat red, green, blue;
+GLfloat angulo = 0.0f;
 
 void actualizar() { 
 	//Aquí esta bien para cambiar los valores
 	//De las variables de mi programa!
-	
-	/*red += 0.001;
-	green += 0.002;
-	blue += 0.003;
 
-	if (red > 1) red = 0;
-	if (green > 1) green = 0;
-	if (blue > 1) blue = 0;*/
+	if (angulo < 360) {
+		angulo += 0.01;
+	}
+	else {
+		angulo = 0.0f;
+	}
 
 }
 
 void dibujar() {
+	glPushMatrix();
+
+	glTranslatef(0.2f, -0.2f, 0.0f);
+	//glRotatef(45.0f, 1.0f, 0.0f, 0.0f); //Afecta eje x
+	//glRotatef(angulo, 0.0f, 1.0f, 0.0f); //Afecta eje y
+	glRotatef(angulo, 0.0f, 0.0f, 1.0f); //Afecta eje z
+	glScalef(0.2f, 0.2f, 0.2f);
+
 	glBegin(GL_TRIANGLES); //Inicia la rutina con un modo de dibujo
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, 0.0f, 0.0f);
+	glVertex3f(-1.0f, -0.5f, 0.0f);
 
 	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, 0.5f, 0.0f);
 
 	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0, 0.0f, 0.0f);
+	glVertex3f(1.0, -0.5f, 0.0f);
 
 	glEnd();//Finaliza la rutina
+	glPopMatrix();
+
 }
 
 
@@ -81,7 +91,8 @@ int main()
 	}
 
 
-	const GLubyte *version = glGetString(GL_VERSION);
+
+	const GLubyte *version = glGetString(GL_VERSION);
 	cout << "Version de OpenGL: " << version << endl;
 
 
